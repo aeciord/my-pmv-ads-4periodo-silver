@@ -189,7 +189,7 @@ O desenvolvimento foi estruturado em um cronograma macro de 16 semanas, dividido
 
 ## Gerenciamento de Custos
 
-O projeto Silver foi concebido para operar majoritariamente sobre infraestruturas de nível gratuito (*Free-Tier*), minimizando o investimento inicial.
+O projeto Silver foi concebido para operar majoritariamente sobre infraestruturas de nível gratuito (*Free-Tier*), minimizando o investimento inicial. Neste momento, não estamos prevendo nenhum custo para o desenvolvimento do projeto, visto que será desenvolvido por alunos do curso de Análise e Desenvolvimento de Sistemas da PUC Minas. Os softwares que serão utilizados para elaboração do projeto serão gratuitos ou mesmo com licença grátis para estudantes. O único custo que o projeto poderá gerar é o custo para fazer o upload da aplicação para as plataformas de comercialização.
 
 | Item | Descrição | Valor Estimado (Mensal) |
 | :--- | :--- | :--- |
