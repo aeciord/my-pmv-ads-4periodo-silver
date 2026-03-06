@@ -33,7 +33,15 @@ Diferente de soluções legadas que focam em uma única plataforma, o **Silver**
 ## Público-Alvo
 
 O projeto é direcionado a:
-- **Famílias modernas**: Que precisam compartilhar e centralizar o controle de gastos domésticos.
-- **Profissionais autônomos**: Que necessitam separar finanças pessoais de contas profissionais de forma rápida.
-- **Usuários mobile-first**: Que utilizam o WhatsApp como principal ferramenta de interação digital e buscam praticidade extrema.
-- **Entusiastas de planejamento**: Que utilizam dashboards web para análise de dados e projeções financeiras.
+
+**Famílias modernas (25 a 55 anos)**  
+Núcleos familiares compostos por casais ou responsáveis que necessitam compartilhar e centralizar o controle de gastos domésticos, como despesas com alimentação, moradia, educação, transporte e lazer. Esse público geralmente pertence às classes socioeconômicas **B e C**, nas quais há uma necessidade maior de planejamento financeiro para equilibrar renda e despesas mensais. Nesse contexto, a plataforma permite que diferentes membros da família tenham acesso às informações financeiras, promovendo maior transparência e facilitando o planejamento coletivo do orçamento familiar.
+
+**Profissionais autônomos e trabalhadores independentes (20 a 50 anos)**  
+Indivíduos que realizam atividades profissionais de forma autônoma, como freelancers, prestadores de serviço e pequenos empreendedores. Esses usuários frequentemente precisam separar receitas e despesas pessoais das relacionadas ao trabalho, o que nem sempre ocorre de maneira organizada. A plataforma auxilia na organização dessas movimentações financeiras, permitindo maior controle sobre entradas, saídas e fluxo de caixa.
+
+**Usuários mobile-first (18 a 40 anos)**  
+Pessoas que utilizam dispositivos móveis como principal meio de acesso a serviços digitais e que priorizam soluções rápidas e práticas. Esse público tende a utilizar aplicativos de mensageria instantânea, como o WhatsApp, como principal ferramenta de comunicação e interação digital, buscando registrar e consultar informações financeiras de forma simples, rápida e integrada ao seu cotidiano.
+
+**Entusiastas de planejamento financeiro (25 a 45 anos)**  
+Usuários que possuem maior interesse em acompanhar dados financeiros de forma estruturada, utilizando dashboards, relatórios e visualizações gráficas para analisar hábitos de consumo, acompanhar metas e realizar projeções financeiras de curto, médio e longo prazo. Esse perfil costuma possuir maior familiaridade com ferramentas digitais e busca soluções que permitam uma análise mais aprofundada das próprias finanças.
