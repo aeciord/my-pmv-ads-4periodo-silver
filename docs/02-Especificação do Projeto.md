@@ -77,8 +77,6 @@ A matriz de rastreabilidade de requisitos é utilizada para garantir que cada re
 | **RF11** | Vinícius - Orçamentos Mensais | UC08 - Gerenciar Orçamentos |
 | **RF12** | Yago - Histórico Filtrável | UC09 - Consultar Histórico |
 
-![Matriz de Rastreabilidade](img/02-matriz-rastreabilidade.png)
-
 ## Restrições
 
 O projeto está restrito pelas condições apresentadas na tabela a seguir:
@@ -188,6 +186,21 @@ O desenvolvimento foi estruturado em um cronograma macro de 16 semanas, dividido
 - **Semanas 5-8 (Mês 2)**: Construção do Dashboard Web e implementação do banco de dados relacional.
 - **Semanas 9-12 (Mês 3)**: Desenvolvimento da integração com WhatsApp (Bridge) e rotas de API.
 - **Semanas 13-16 (Mês 4)**: Desenvolvimento do App Mobile, testes de sincronização, correções e entrega final.
+
+## Gerenciamento de Custos
+
+O projeto Silver foi concebido para operar majoritariamente sobre infraestruturas de nível gratuito (*Free-Tier*), minimizando o investimento inicial.
+
+| Item | Descrição | Valor Estimado (Mensal) |
+| :--- | :--- | :--- |
+| **Hospedagem Backend** | Render / Azure (Planos Gratuitos) | R$ 0,00 |
+| **Hospedagem Frontend** | Netlify / GitHub Pages | R$ 0,00 |
+| **Banco de Dados** | MongoDB Atlas (M0 Free Tier) | R$ 0,00 |
+| **API WhatsApp** | Evolução API / Cotas Gratuitas | R$ 0,00 |
+| **Mão de Obra** | 6 Desenvolvedores (Estudantes) | R$ 0,00 |
+| **Custo Total** | --- | **R$ 0,00** |
+
+*Nota: Em cenários de escala comercial, seriam considerados custos de licenciamento da API oficial da Meta (WhatsApp Business) e instâncias pagas de servidor para garantir SLA.*
 
 ## Gerenciamento de Equipe
 

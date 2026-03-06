@@ -144,7 +144,7 @@ Escalabilidade: Considere estratégias de sharding e replicação para lidar com
 
 ### Material de Apoio da Etapa
 
-Na etapa 2, em máterial de apoio, estão disponíveis vídeos com a configuração do mongo.db e a utilização com Bson no C#
+Na etapa 2, em material de apoio, estão disponíveis vídeos com a configuração do mongo.db e a utilização com Bson no C#
 
 
 ## Modelo ER (Somente se tiver mais de um banco e outro for relacional)
