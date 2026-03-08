@@ -210,5 +210,22 @@ O projeto Silver foi concebido para operar majoritariamente sobre infraestrutura
 
 ## Gerenciamento de Equipe
 
+Para o gerenciamento da equipe, será utilizado a metodologia ágil, que ganhou destaque a partir da publicação do Manifesto Ágil, em 2001, que estabeleceu quatro valores fundamentais: indivíduos e interações acima de processos e ferramentas; software em funcionamento acima de documentação abrangente; colaboração com o cliente acima de negociação de contratos; e resposta a mudanças acima de seguir um plano rígido (Beck et al., 2001). Esses princípios orientam a forma como equipes são organizadas, como as tarefas são distribuídas e como as decisões são tomadas ao longo do desenvolvimento de um projeto.
+A metodologia ágil tem sido amplamente utilizada no gerenciamento de equipes e projetos, especialmente em ambientes que exigem rapidez, adaptação a mudanças e maior colaboração entre os membros da equipe. Diferentemente das abordagens tradicionais de gerenciamento, que seguem um planejamento rígido e sequencial, as metodologias ágeis priorizam a flexibilidade, a comunicação contínua e a entrega incremental de resultados.
+Entre os frameworks ágeis mais utilizados está o Scrum, que organiza o trabalho em ciclos curtos chamados de sprints, normalmente com duração entre duas e quatro semanas. Durante cada sprint, a equipe se compromete a entregar um conjunto de funcionalidades ou resultados previamente definidos. O processo inclui reuniões periódicas, como a daily meeting, que tem como objetivo alinhar o progresso das atividades, identificar impedimentos e promover maior transparência no andamento do projeto (Schwaber & Sutherland, 2020).
+Outro framework bastante utilizado é o Kanban, que tem como foco a visualização do fluxo de trabalho e a melhoria contínua do processo. Nesse modelo, as tarefas são organizadas em um quadro visual dividido em etapas, permitindo que toda a equipe acompanhe o andamento das atividades e identifique possíveis gargalos no processo produtivo (Anderson, 2010).
 O gerenciamento ágil de tarefas e a coordenação da equipe serão realizados por meio do **GitHub Projects**. O quadro da equipe conterá o fluxo de cada requisito da funcionalidade, passando pelas fases de *Todo*, *In Progress*, *Review* e *Done*, vinculando PRs (Pull Requests) diretamente às entregas de cada um dos 6 desenvolvedores responsáveis.
 
+## Impacto Social e Sustentabilidade
+
+Contribuição para os ODS
+- ODS 1: solução híbrida gratuita (*app* + *WhatsApp*) para controle financeiro acessível
+- ODS 8: educação financeira integrada usando tecnologia nativa e conversacional
+- ODS 10: democratização via *app* nativo profissional + *WhatsApp* familiar
+
+Métricas de Sucesso
+- 500+ usuários ativos nos primeiros 6 meses
+- 85% de precisão no reconhecimento de linguagem natural
+- 75% dos usuários reportam melhora no controle financeiro
+- 60% conseguem manter orçamento mensal consistente
+- Tempo médio de resposta
