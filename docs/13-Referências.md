@@ -1,7 +1,5 @@
 # Referências
 
-Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvolvimento do trabalho.
-
 ANDERSON, David J. Kanban: Successful Evolutionary Change for Your Technology Business. Sequim: Blue Hole Press, 2010.
 
 BECK, Kent et al. Manifesto for Agile Software Development. 2001. Disponível em: https://agilemanifesto.org. Acesso em: 08 mar. 2026.
