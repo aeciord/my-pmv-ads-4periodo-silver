@@ -10,9 +10,9 @@ Para compreender as necessidades e dores dos usuários, foram desenvolvidas trê
 
 | Foto | Perfil | Detalhes | Motivações e Comportamento |
 | :--- | :--- | :--- | :--- |
-| ![Maria](https://i.pravatar.cc/150?u=maria) | **Nome:** Maria da Silva<br>**Idade:** 38 anos<br>**Profissão:** Auxiliar Administrativa | **Renda:** R$ 2.400,00<br>**Tecnologia:** Familiarizada com WhatsApp e utiliza celular Android. | **Dores:** Esquece de anotar pequenos gastos e acha planilhas complicadas.<br>**Objetivos:** Usar o WhatsApp para registros instantâneos e ver relatórios simples no celular. |
+| ![Carlos](https://i.pravatar.cc/150?u=carlos) | **Nome:** Maria da Silva<br>**Idade:** 38 anos<br>**Profissão:** Auxiliar Administrativa | **Renda:** R$ 2.400,00<br>**Tecnologia:** Familiarizada com WhatsApp e utiliza celular Android. | **Dores:** Esquece de anotar pequenos gastos e acha planilhas complicadas.<br>**Objetivos:** Usar o WhatsApp para registros instantâneos e ver relatórios simples no celular. |
 | ![João](https://i.pravatar.cc/150?u=joao) | **Nome:** João Pereira<br>**Idade:** 24 anos<br>**Profissão:** Vendedor Autônomo | **Renda:** R$ 1.800,00<br>**Tecnologia:** Usuário ativo de aplicativos e redes sociais. | **Dores:** Dificuldade em separar gastos pessoais de profissionais no dia a dia.<br>**Objetivos:** Registrar tudo rápido pelo WhatsApp e usar o Dashboard Web para planejamento mensal. |
-| ![Carlos](https://i.pravatar.cc/150?u=carlos) | **Nome:** Carlos Santos<br>**Idade:** 32 anos<br>**Profissão:** Técnico de TI | **Renda:** R$ 4.500,00<br>**Tecnologia:** Confortável com Dashboards complexos e múltiplas janelas. | **Dores:** Precisa de uma visão analítica potente para gerir investimentos e metas.<br>**Objetivos:** Usar o Dashboard Web para análises profundas e integração total entre dispositivos. |
+| ![Maria](https://i.pravatar.cc/150?u=maria) | **Nome:** Carlos Santos<br>**Idade:** 32 anos<br>**Profissão:** Técnico de TI | **Renda:** R$ 4.500,00<br>**Tecnologia:** Confortável com Dashboards complexos e múltiplas janelas. | **Dores:** Precisa de uma visão analítica potente para gerir investimentos e metas.<br>**Objetivos:** Usar o Dashboard Web para análises profundas e integração total entre dispositivos. |
 
 ## Histórias de Usuários
 
