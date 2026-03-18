@@ -67,6 +67,7 @@ __generated__/
 tmp/
 temp/
 .cache/
+/aecio_docs
 
 # === Build outputs ===
 /dist/
