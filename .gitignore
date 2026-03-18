@@ -68,6 +68,10 @@ tmp/
 temp/
 .cache/
 /aecio_docs
+/src/backend/.agents/
+/src/backend/.codex/
+/src/backend/.cursor/
+/src/backend/.junie/
 
 # === Build outputs ===
 /dist/
