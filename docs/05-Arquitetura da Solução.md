@@ -6,6 +6,15 @@ Esta seção descreve como o Silver é estruturado em termos de componentes de s
 
 ---
 
+## Status de Implementação (18/03/2026)
+
+- Backend Laravel ativo em `src/backend` (Laravel 12.55.1).
+- Autenticação via Sanctum implementada para API (`/api/register`, `/api/login`, `/api/me`).
+- Integração do pacote MongoDB no backend já concluída.
+- Conexão ao MongoDB Atlas pendente apenas de provisionamento do cluster e preenchimento de `DB_DSN` no `.env`.
+
+---
+
 ## Visão Geral da Arquitetura Distribuída
 
 O Silver adota uma **arquitetura distribuída baseada em API REST**, na qual um backend centralizado (API Laravel) serve como núcleo de processamento, sendo consumido por diferentes clientes: um Dashboard Web, um aplicativo Mobile e um serviço de integração com o WhatsApp. Essa abordagem garante que os dados estejam sempre sincronizados entre as plataformas, independentemente do canal utilizado pelo usuário para registrar ou consultar suas informações financeiras.
@@ -49,7 +58,7 @@ O Silver adota uma **arquitetura distribuída baseada em API REST**, na qual um 
 ### 1. API Backend (Laravel/PHP)
 Núcleo central da plataforma. Responsável por:
 - Processar e validar todas as transações financeiras
-- Gerenciar autenticação e autorização de usuários (Laravel Sanctum / JWT)
+- Gerenciar autenticação e autorização de usuários (Laravel Sanctum)
 - Expor endpoints REST consumidos pelos clientes Web, Mobile e WhatsApp Bridge
 - Calcular saldos consolidados, metas e orçamentos
 - Gerar relatórios em PDF/CSV sob demanda
