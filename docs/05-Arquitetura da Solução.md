@@ -91,51 +91,55 @@ O diagrama de classes representa as principais entidades do domínio do Silver e
 
 ```
 +------------------+        +----------------------+
-|      User        |        |     Transaction      |
+|     Family       |        |     Transaction      |
 +------------------+        +----------------------+
 | - id             |1      *| - id                 |
-| - name           |--------| - userId             |
-| - email          |        | - type (income/exp.) |
-| - passwordHash   |        | - amount             |
-| - whatsappNumber |        | - description        |
-| - createdAt      |        | - categoryId         |
-| - updatedAt      |        | - source             |
-+------------------+        | - attachmentUrl      |
-|                   | - date               |
-|                   +----------------------+
-|                            |
-|1                           |*
-|                   +--------▼---------+
-|                   |    Category      |
-|                   +------------------+
-|                   | - id             |
-|                   | - userId         |
-|                   | - name           |
-|                   | - color          |
-|                   | - icon           |
-|                   +------------------+
-|
-|1            *+------------------+
-|--------------|      Goal        |
-|              +------------------+
-|              | - id             |
-|              | - userId         |
-|              | - name           |
-|              | - targetAmount   |
-|              | - currentAmount  |
-|              | - deadline       |
-|              +------------------+
-|
-|1            *+------------------+
-|--------------|     Budget       |
-+------------------+
-| - id             |
-| - userId         |
-| - categoryId     |
-| - monthYear      |
-| - limitAmount    |
-| - spentAmount    |
-+------------------+
+| - name           |----+---| - familyId           |
+| - createdAt      |    |   | - userId             |
++------------------+    |   | - type (income/exp.) |
+          |1            |   | - amount             |
+          |             |   | - description        |
+          |*            |   | - categoryId         |
++------------------+    |   | - source             |
+|      User        |    |   | - attachmentUrl      |
++------------------+    |   | - date               |
+| - id             |    |   +----------------------+
+| - familyId       |    |              |
+| - name           |    |              |*
+| - email          |    |   +--------▼---------+
+| - passwordHash   |    |   |    Category      |
+| - whatsappNumber |    |   +------------------+
++------------------+    |   | - id             |
+          |             +---| - familyId       |
+          |             |   | - userId         |
+          |             |   | - name           |
+          |             |   | - color          |
+          |             |   | - icon           |
+          |             |   +------------------+
+          |             |
+          |             |   +------------------+
+          |             +---|      Goal        |
+          |             |   +------------------+
+          |             |   | - id             |
+          |             |   | - familyId       |
+          |             |   | - userId         |
+          |             |   | - name           |
+          |             |   | - targetAmount   |
+          |             |   | - currentAmount  |
+          |             |   | - deadline       |
+          |             |   +------------------+
+          |             |
+          |             |   +------------------+
+          |             +---|     Budget       |
+          +-----------------|------------------|
+                            | - id             |
+                            | - familyId       |
+                            | - userId         |
+                            | - categoryId     |
+                            | - monthYear      |
+                            | - limitAmount    |
+                            | - spentAmount    |
+                            +------------------+
 ```
 
 ---
@@ -144,24 +148,44 @@ O diagrama de classes representa as principais entidades do domínio do Silver e
 
 O Silver utiliza o **MongoDB** como banco de dados principal, aproveitando sua flexibilidade de esquema para armazenar diferentes tipos de registros financeiros. A seguir são descritas as coleções principais do sistema.
 
+### Coleção: `families`
+Armazena os grupos familiares/casais que compartilham o controle financeiro.
+
+```json
+{
+  "_id": "ObjectId('...')",
+  "name": "Família Silva",
+  "createdAt": "2026-03-01T10:00:00Z"
+}
+```
+
+| Campo | Descrição |
+|---|---|
+| `_id` | Identificador único da família |
+| `name` | Nome descritivo do grupo familiar |
+
+---
+
 ### Coleção: `users`
 Armazena os dados de cadastro e autenticação dos usuários.
 
 ```json
 {
-"_id": "ObjectId('...')",
-"name": "Maria da Silva",
-"email": "maria@example.com",
-"passwordHash": "hash_bcrypt_da_senha",
-"whatsappNumber": "+5531999999999",
-"createdAt": "2026-03-01T10:00:00Z",
-"updatedAt": "2026-03-01T10:00:00Z"
+  "_id": "ObjectId('...')",
+  "familyId": "ObjectId('...')",
+  "name": "Maria da Silva",
+  "email": "maria@example.com",
+  "passwordHash": "hash_bcrypt_da_senha",
+  "whatsappNumber": "+5531999999999",
+  "createdAt": "2026-03-01T10:00:00Z",
+  "updatedAt": "2026-03-01T10:00:00Z"
 }
 ```
 
 | Campo | Descrição |
 |---|---|
 | `_id` | Identificador único gerado automaticamente pelo MongoDB |
+| `familyId` | Referência à família a que o usuário pertence |
 | `name` | Nome completo do usuário |
 | `email` | E-mail utilizado para login no Dashboard Web |
 | `passwordHash` | Hash bcrypt da senha do usuário |
@@ -174,23 +198,25 @@ Armazena todas as movimentações financeiras (receitas e despesas).
 
 ```json
 {
-"_id": "ObjectId('...')",
-"userId": "ObjectId('...')",
-"type": "expense",
-"amount": 45.90,
-"description": "Almoço no restaurante",
-"categoryId": "ObjectId('...')",
-"source": "whatsapp",
-"attachmentUrl": null,
-"date": "2026-03-08T13:30:00Z",
-"createdAt": "2026-03-08T13:31:00Z"
+  "_id": "ObjectId('...')",
+  "familyId": "ObjectId('...')",
+  "userId": "ObjectId('...')",
+  "type": "expense",
+  "amount": 45.90,
+  "description": "Almoço no restaurante",
+  "categoryId": "ObjectId('...')",
+  "source": "whatsapp",
+  "attachmentUrl": null,
+  "date": "2026-03-08T13:30:00Z",
+  "createdAt": "2026-03-08T13:31:00Z"
 }
 ```
 
 | Campo | Descrição |
 |---|---|
 | `_id` | Identificador único da transação |
-| `userId` | Referência ao usuário dono da transação |
+| `familyId` | Referência à família dona da transação (quem visualiza) |
+| `userId` | Referência ao usuário que criou o registro (auditoria) |
 | `type` | Tipo da transação: `income` (receita) ou `expense` (despesa) |
 | `amount` | Valor em reais da transação |
 | `description` | Descrição textual informada pelo usuário |
@@ -202,23 +228,25 @@ Armazena todas as movimentações financeiras (receitas e despesas).
 ---
 
 ### Coleção: `categories`
-Armazena as categorias financeiras personalizadas por usuário.
+Armazena as categorias financeiras personalizadas por família.
 
 ```json
 {
-"_id": "ObjectId('...')",
-"userId": "ObjectId('...')",
-"name": "Alimentação",
-"color": "#FF6B6B",
-"icon": "utensils",
-"createdAt": "2026-03-01T10:00:00Z"
+  "_id": "ObjectId('...')",
+  "familyId": "ObjectId('...')",
+  "userId": "ObjectId('...')",
+  "name": "Alimentação",
+  "color": "#FF6B6B",
+  "icon": "utensils",
+  "createdAt": "2026-03-01T10:00:00Z"
 }
 ```
 
 | Campo | Descrição |
 |---|---|
 | `_id` | Identificador único da categoria |
-| `userId` | Referência ao usuário dono da categoria |
+| `familyId` | Referência à família dona da categoria |
+| `userId` | Referência ao usuário que criou a categoria |
 | `name` | Nome da categoria (ex: Alimentação, Transporte) |
 | `color` | Cor em hexadecimal para identificação visual |
 | `icon` | Ícone representativo da categoria |
@@ -226,25 +254,27 @@ Armazena as categorias financeiras personalizadas por usuário.
 ---
 
 ### Coleção: `goals`
-Armazena as metas financeiras de economia definidas pelo usuário.
+Armazena as metas financeiras de economia definidas pela família.
 
 ```json
 {
-"_id": "ObjectId('...')",
-"userId": "ObjectId('...')",
-"name": "Reserva de Emergência",
-"targetAmount": 5000.00,
-"currentAmount": 1200.00,
-"deadline": "2026-12-31T00:00:00Z",
-"createdAt": "2026-03-01T10:00:00Z",
-"updatedAt": "2026-03-08T10:00:00Z"
+  "_id": "ObjectId('...')",
+  "familyId": "ObjectId('...')",
+  "userId": "ObjectId('...')",
+  "name": "Reserva de Emergência",
+  "targetAmount": 5000.00,
+  "currentAmount": 1200.00,
+  "deadline": "2026-12-31T00:00:00Z",
+  "createdAt": "2026-03-01T10:00:00Z",
+  "updatedAt": "2026-03-08T10:00:00Z"
 }
 ```
 
 | Campo | Descrição |
 |---|---|
 | `_id` | Identificador único da meta |
-| `userId` | Referência ao usuário dono da meta |
+| `familyId` | Referência à família dona da meta |
+| `userId` | Referência ao usuário que criou a meta |
 | `name` | Nome ou descrição da meta financeira |
 | `targetAmount` | Valor alvo a ser atingido |
 | `currentAmount` | Valor economizado até o momento |
@@ -253,24 +283,26 @@ Armazena as metas financeiras de economia definidas pelo usuário.
 ---
 
 ### Coleção: `budgets`
-Armazena os orçamentos mensais com limite de gastos por categoria.
+Armazena os orçamentos mensais com limite de gastos por categoria da família.
 
 ```json
 {
-"_id": "ObjectId('...')",
-"userId": "ObjectId('...')",
-"categoryId": "ObjectId('...')",
-"monthYear": "2026-03",
-"limitAmount": 800.00,
-"spentAmount": 320.00,
-"createdAt": "2026-03-01T10:00:00Z"
+  "_id": "ObjectId('...')",
+  "familyId": "ObjectId('...')",
+  "userId": "ObjectId('...')",
+  "categoryId": "ObjectId('...')",
+  "monthYear": "2026-03",
+  "limitAmount": 800.00,
+  "spentAmount": 320.00,
+  "createdAt": "2026-03-01T10:00:00Z"
 }
 ```
 
 | Campo | Descrição |
 |---|---|
 | `_id` | Identificador único do orçamento |
-| `userId` | Referência ao usuário dono do orçamento |
+| `familyId` | Referência à família dona do orçamento |
+| `userId` | Referência ao usuário que definiu o orçamento |
 | `categoryId` | Referência à categoria com limite definido |
 | `monthYear` | Mês de referência do orçamento (formato `YYYY-MM`) |
 | `limitAmount` | Limite máximo de gastos para a categoria no mês |
