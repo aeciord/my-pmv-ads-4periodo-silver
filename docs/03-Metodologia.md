@@ -6,8 +6,16 @@ Descreva aqui a metodologia de trabalho do grupo para atacar o problema. Defini�
 
 ## Relação de Ambientes de Trabalho
 
-Os artefatos do projeto são desenvolvidos a partir de diversas plataformas e a relação dos ambientes com seu respectivo propósito deverá ser apresentada em uma tabela que especifica e detalha Ambiente, Plataforma e Link de Acesso.
-Nota: Vide documento modelo do estudo de caso "Portal de Notícias" e defina também os ambientes e frameworks que serão utilizados no desenvolvimento de aplicações móveis.
+Os artefatos do projeto são desenvolvidos a partir de diversas plataformas e a relação dos ambientes com seu respectivo propósito é apresentada na tabela abaixo:
+
+| Ambiente | Plataforma | Link de Acesso |
+| :--- | :--- | :--- |
+| Repositório de Código | GitHub | [GitHub - Silver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2026-1-e4-proj-infra-t3-silver) |
+| Backend (API Laravel) | Render | [API Silver (Hospedagem)](https://silver-api.onrender.com) |
+| Banco de Dados NoSQL | MongoDB Atlas | [Cluster MongoDB M0](https://cloud.mongodb.com) |
+| Gestão de Projeto | GitHub Projects | [Quadro Kanban Silver](https://github.com/orgs/ICEI-PUC-Minas-PMV-ADS/projects/...) |
+| Documentação / Wiki | GitHub Docs | [Docs Silver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2026-1-e4-proj-infra-t3-silver/tree/main/docs) |
+| Protótipo de Interface | Figma | [Figma Silver UI/UX](https://www.figma.com/...) |
 
 ## Controle de Versão
 
@@ -30,8 +38,7 @@ etiquetas:
 - `enhancement`: uma funcionalidade precisa ser melhorada
 - `feature`: uma nova funcionalidade precisa ser introduzida
 
-Discuta como a configuração do projeto foi feita na ferramenta de versionamento escolhida. Exponha como a gerência de tags, merges, commits e branchs é realizada. Discuta como a gerência de issues foi realizada.
-
+O projeto utiliza o fluxo de trabalho **GitHub Flow**, onde a branch `main` mantém o código de produção estável, e as funcionalidades são desenvolvidas em branches curtas (ex: `feature/api-auth`) antes de serem revisadas e integradas via Pull Requests. A gerência de issues é feita através do Kanban do GitHub, categorizando tarefas por dificuldade e tipo (bug, enhancement, documentation).
 > **Links Úteis**:
 > - [Microfundamento: Gerência de Configuração](https://pucminas.instructure.com/courses/87878/)
 > - [Tutorial GitHub](https://guides.github.com/activities/hello-world/)
@@ -42,15 +49,11 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ## Gerenciamento de Projeto
 
-### Divisão de Papéis
-
-Apresente a divisão de papéis entre os membros do grupo.
-
-Exemplificação: A equipe utiliza metodologias ágeis, tendo escolhido o Scrum como base para definição do processo de desenvolvimento. A equipe está organizada da seguinte maneira:
-- Scrum Master: Felipe Domingos;
-- Product Owner: Rommel Carneiro;
-- Equipe de Desenvolvimento: Pedro Penna, Pedro Ivo, Rodrigo Richard;
-- Equipe de Design: Simone Nogueira.
+A equipe utiliza metodologias ágeis, tendo escolhido o Scrum como base para definição do processo de desenvolvimento. A equipe está organizada da seguinte maneira:
+- **Scrum Master:** Aécio Santos;
+- **Product Owner:** Nathan Reis;
+- **Equipe de Desenvolvimento:** Vinícius Silva, Yago Oliveira, Adrian Martins;
+- **Equipe de Design:** Victor Hugo.
 
 > **Links Úteis**:
 > - [11 Passos Essenciais para Implantar Scrum no seu Projeto](https://mindmaster.com.br/scrum-11-passos/)
@@ -59,7 +62,7 @@ Exemplificação: A equipe utiliza metodologias ágeis, tendo escolhido o Scrum 
 
 ### Processo
 
-Coloque informações sobre detalhes da implementação do Scrum seguido pelo grupo. O grupo deverá fazer uso do recurso de gerenciamento de projeto oferecido pelo GitHub, que permite acompanhar o andamento do projeto, a execução das tarefas e o status de desenvolvimento da solução.
+A equipe utiliza o **GitHub Projects** como principal ferramenta de gestão. As Sprints são mensais, com reuniões de planejamento e revisão ao final de cada etapa. O quadro Kanban é dividido em *Backlog*, *To Do*, *In Progress*, *Review* e *Done*, permitindo visibilidade total do progresso dos requisitos funcionais (RF01 a RF12).
  
 > **Links Úteis**:
 > - [Planejamento e Gestão Ágil de Projetos](https://pucminas.instructure.com/courses/87878/pages/unidade-2-tema-2-utilizacao-de-ferramentas-para-controle-de-versoes-de-software)
@@ -69,17 +72,14 @@ Coloque informações sobre detalhes da implementação do Scrum seguido pelo gr
 > - [Como criar Backlogs no Github](https://www.youtube.com/watch?v=RXEy6CFu9Hk)
 > - [Tutorial Slack](https://slack.com/intl/en-br/)
 
-### Ferramentas
-
 As ferramentas empregadas no projeto são:
 
-- Editor de código.
-- Ferramentas de comunicação
-- Ferramentas de desenho de tela (_wireframing_)
-
-O editor de código foi escolhido porque ele possui uma integração com o sistema de versão. As ferramentas de comunicação utilizadas possuem integração semelhante e por isso foram selecionadas. Por fim, para criar diagramas utilizamos essa ferramenta por melhor captar as necessidades da nossa solução.
-
-Liste quais ferramentas foram empregadas no desenvolvimento do projeto, justificando a escolha delas, sempre que possível.
+- **Editor de Código (VS Code):** Escolhido pela leveza e vasta gama de extensões para PHP/Laravel e React.
+- **Backend Framework (Laravel):** Utilizado para a Web API devido à sua robustez e facilidade de integração com MongoDB.
+- **Banco de Dados (MongoDB Atlas):** Selecionado pela flexibilidade do esquema NoSQL para registros financeiros dinâmicos.
+- **Comunicação (Slack/WhatsApp):** Para alinhamento rápido e assíncrono entre os membros.
+- **Hospedagem (Render/Azure):** Pelas cotas gratuitas ideais para o ciclo acadêmico.
+- **Ferramentas de Design (Figma):** Para prototipação de alta fidelidade das interfaces Web e Mobile.
  
 > **Possíveis Ferramentas que auxiliarão no gerenciamento**: 
 > - [Slack](https://slack.com/)

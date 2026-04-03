@@ -1,15 +1,111 @@
-# Programação de Funcionalidades
+# Documentação da implementação da Web API Rest
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
+Esta seção detalha a implementação da API Backend desenvolvida em **Laravel**, responsável por processar as regras de negócio e centralizar os dados no **MongoDB**.
 
-5: Implementação do sistema descrita por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos aos artefatos criados (código fonte), além das estruturas de dados utilizadas e as instruções para acesso e verificação da implementação, que deve estar funcional no ambiente de hospedagem.
+## Configurações de Ambiente
 
-Para cada requisito funcional, pode ser entregue um artefato desse tipo
+A API requer as seguintes variáveis de ambiente configuradas no arquivo `.env`:
 
-> **Links Úteis**:
->
-> - [Trabalhando com HTML5 Local Storage e JSON](https://www.devmedia.com.br/trabalhando-com-html5-local-storage-e-json/29045)
-> - [JSON Tutorial](https://www.w3resource.com/JSON)
-> - [JSON Data Set Sample](https://opensource.adobe.com/Spry/samples/data_region/JSONDataSetSample.html)
-> - [JSON - Introduction (W3Schools)](https://www.w3schools.com/js/js_json_intro.asp)
-> - [JSON Tutorial (TutorialsPoint)](https://www.tutorialspoint.com/json/index.htm)
+```env
+APP_NAME=Silver
+APP_ENV=local
+APP_KEY=base64:...
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mongodb
+DB_DSN=mongodb+srv://<usuario>:<senha>@cluster.mongodb.net/silver_db?retryWrites=true&w=majority
+DB_DATABASE=silver_db
+```
+
+### Instalação e Execução
+1. `composer install`
+2. `php artisan key:generate`
+3. `php artisan serve`
+
+---
+
+## Autenticação
+
+A API utiliza o **Laravel Sanctum** para autenticação baseada em tokens.
+- **Formato:** Bearer Token
+- **Header:** `Authorization: Bearer <token>`
+- **Content-Type:** `application/json`
+
+---
+
+## Recursos e Rotas
+
+### 1. Autenticação
+
+#### **Registrar Novo Usuário**
+- **URL:** `/api/register`
+- **Método:** `POST`
+- **Body:**
+  ```json
+  {
+    "name": "João Silva",
+    "email": "joao@example.com",
+    "password": "password123",
+    "password_confirmation": "password123"
+  }
+  ```
+- **Resposta (201):**
+  ```json
+  {
+    "user": { "id": "...", "name": "...", "email": "..." },
+    "token": "..."
+  }
+  ```
+
+#### **Login**
+- **URL:** `/api/login`
+- **Método:** `POST`
+- **Body:**
+  ```json
+  {
+    "email": "joao@example.com",
+    "password": "password123"
+  }
+  ```
+- **Resposta (200):** Token de acesso válido.
+
+#### **Perfil Atual (Me)**
+- **URL:** `/api/me`
+- **Método:** `GET`
+- **Proteção:** Ativa (`auth:sanctum`)
+- **Resposta (200):** Dados do usuário logado e sua `familyId`.
+
+---
+
+### 2. Contas (Accounts) [Implementação em andamento]
+
+#### **Listar Contas da Família**
+- **URL:** `/api/accounts`
+- **Método:** `GET`
+- **Resposta:** Lista de contas (Itaú, Nubank, etc.) vinculadas à `familyId` do usuário.
+
+---
+
+### 3. Transações (Transactions) [Implementação em andamento]
+
+#### **Registrar Transação**
+- **URL:** `/api/transactions`
+- **Método:** `POST`
+- **Body:**
+  ```json
+  {
+    "accountId": "...",
+    "categoryId": "...",
+    "type": "expense",
+    "amount": 50.00,
+    "description": "Jantar",
+    "date": "2026-04-03"
+  }
+  ```
+
+---
+
+## Modelagem NoSQL
+
+A implementação no MongoDB segue o padrão de **Documentos Embutidos** onde pertinente e **Referências** via ID para coleções principais (Transactions -> Accounts, Users -> Families). A flexibilidade do NoSQL é utilizada para permitir campos dinâmicos nas transações originadas pelo WhatsApp.

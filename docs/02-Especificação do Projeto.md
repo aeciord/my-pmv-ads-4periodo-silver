@@ -56,7 +56,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 | **RNF03** | O sistema deve adotar uma arquitetura distribuída (API REST) para integração multiplataforma. | Média |
 | **RNF04** | Todas as comunicações contendo dados sensíveis devem trafegar via HTTPS. | Alta |
 | **RNF05** | O tempo de processamento padrão da API não deve exceder 3 segundos. | Alta |
-| **RNF06** | O banco de dados relacional deve garantir integridade e atomicidade das transações. | Alta |
+| **RNF06** | O banco de dados não-relacional (NoSQL) deve garantir a consistência e integridade das transações do sistema. | Alta |
 
 ## Matriz de Rastreabilidade
 
@@ -90,7 +90,7 @@ O projeto está restrito pelas condições apresentadas na tabela a seguir:
 ## Arquitetura Distribuída
 
 O **Silver** utiliza uma arquitetura distribuída composta pelos seguintes componentes principais:
-1. **API Gateway / Backend (Laravel)**: Núcleo central que processa as regras de negócio, autenticação e comunicação com o banco de dados relacional.
+1. **API Gateway / Backend (Laravel)**: Núcleo central que processa as regras de negócio, autenticação e comunicação com o banco de dados não-relacional (MongoDB).
 2. **Dashboard Web**: Interface frontend consumindo a API Laravel para análises detalhadas.
 3. **WhatsApp Bridge (Node.js/Webhook)**: Microsserviço que processa mensagens enviadas pelo usuário no WhatsApp e as direciona para a API principal criar os registros.
 4. **App Mobile**: Aplicativo auxiliar para consultas rápidas na palma da mão.
@@ -110,9 +110,10 @@ A seguir, são detalhados os fluxos principais e exceções dos casos de uso que
 - **Descrição**: Permite o registro de uma nova entrada (receita) ou saída (despesa).
 - **Fluxo Básico**: 
     1. O usuário envia o valor e descrição via WhatsApp ou preenche o formulário na Web.
-    2. O sistema valida os dados e a categoria.
-    3. O sistema confirma o registro e atualiza o saldo.
-- **Exceção**: Valor inválido ou falta de conexão com o banco de dados.
+    2. O usuário seleciona a **conta de origem/destino** (ex: Itaú, Nubank) vinculada à sua família.
+    3. O sistema valida os dados, a conta e a categoria.
+    4. O sistema confirma o registro e atualiza o saldo consolidado da conta e o progresso orçamentário da família.
+- **Exceção**: Valor inválido, conta inexistente ou falta de conexão com o banco de dados NoSQL.
 
 ### UC02 - Visualizar Painel Financeiro
 - **Ator**: Usuário.
@@ -185,7 +186,7 @@ De acordo com o PMBoK, atualmente em sua oitava edição, as dez áreas que cons
 O desenvolvimento foi estruturado em um cronograma macro de 16 semanas, dividido em quatro ciclos principais (Sprints Mensais):
 
 - **Semanas 1-4 (Mês 1)**: Concepção do projeto, Planejamento da Especificação e Setup do Backend (Laravel).
-- **Semanas 5-8 (Mês 2)**: Construção do Dashboard Web e implementação do banco de dados relacional.
+- **Semanas 5-8 (Mês 2)**: Construção do Dashboard Web e implementação do banco de dados não-relacional (MongoDB).
 - **Semanas 9-12 (Mês 3)**: Desenvolvimento da integração com WhatsApp (Bridge) e rotas de API.
 - **Semanas 13-16 (Mês 4)**: Desenvolvimento do App Mobile, testes de sincronização, correções e entrega final.
 

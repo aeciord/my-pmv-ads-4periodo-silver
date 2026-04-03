@@ -73,9 +73,18 @@ Interface frontend voltada para análise e planejamento financeiro detalhado. Re
 ### 3. WhatsApp Bridge (Node.js / Webhook)
 Microsserviço intermediário que conecta o WhatsApp à API principal. Responsável por:
 - Receber mensagens enviadas pelo usuário no WhatsApp via webhook
-- Interpretar o conteúdo da mensagem (valor, descrição, categoria)
-- Encaminhar as informações para a API Laravel criar o registro de transação
-- Retornar confirmação ou resumo financeiro ao usuário via WhatsApp
+- Interpretar o conteúdo da mensagem (valor, descrição, categoria) utilizando **Processamento de Linguagem Natural (NLP)** via API de Inteligência Artificial (ex: Google Gemini ou OpenAI)
+- Encaminhar as informações estruturadas para a API Laravel criar o registro de transação
+- Retornar confirmação ou resumo financeiro ao usuário via WhatsApp em tempo real
+
+---
+
+## Localização e Moeda
+
+Para garantir consistência nos cálculos de saldo consolidado e orçamentos planejados, o Silver adota:
+- **Moeda:** Real Brasileiro (BRL / R$) como padrão fixo em toda a plataforma.
+- **Idioma:** Português (Brasil).
+- **Fuso Horário:** Horário de Brasília (UTC-3).
 
 ### 4. Aplicativo Mobile (React Native)
 Interface mobile voltada para consultas rápidas e registros em mobilidade. Responsável por:
@@ -95,42 +104,43 @@ O diagrama de classes representa as principais entidades do domínio do Silver e
 +------------------+        +----------------------+
 | - id             |1      *| - id                 |
 | - name           |----+---| - familyId           |
-| - createdAt      |    |   | - userId             |
-+------------------+    |   | - type (income/exp.) |
-          |1            |   | - amount             |
-          |             |   | - description        |
-          |*            |   | - categoryId         |
-+------------------+    |   | - source             |
-|      User        |    |   | - attachmentUrl      |
-+------------------+    |   | - date               |
-| - id             |    |   +----------------------+
-| - familyId       |    |              |
-| - name           |    |              |*
-| - email          |    |   +--------▼---------+
-| - passwordHash   |    |   |    Category      |
-| - whatsappNumber |    |   +------------------+
-+------------------+    |   | - id             |
+| - createdAt      |    |   | - accountId          |
++------------------+    |   | - userId             |
+      |1                |   | - type (income/exp.) |
+      |                 |   | - amount             |
+      |*                |   | - description        |
++------------------+    |   | - categoryId         |
+|     Account      |    |   | - source             |
++------------------+    |   | - attachmentUrl      |
+| - id             |    |   | - date               |
+| - familyId       |    |   +----------------------+
+| - name           |    |              |
+| - type           |    |              |*
+| - balance        |    |   +--------▼---------+
++------------------+    |   |    Category      |
+          |             |   +------------------+
+          |1            |   | - id             |
           |             +---| - familyId       |
-          |             |   | - userId         |
-          |             |   | - name           |
-          |             |   | - color          |
-          |             |   | - icon           |
-          |             |   +------------------+
-          |             |
-          |             |   +------------------+
-          |             +---|      Goal        |
-          |             |   +------------------+
-          |             |   | - id             |
-          |             |   | - familyId       |
-          |             |   | - userId         |
-          |             |   | - name           |
-          |             |   | - targetAmount   |
-          |             |   | - currentAmount  |
-          |             |   | - deadline       |
-          |             |   +------------------+
-          |             |
-          |             |   +------------------+
-          |             +---|     Budget       |
+          |*            |   | - userId         |
++------------------+    |   | - name           |
+|      User        |    |   | - color          |
++------------------+    |   | - icon           |
+| - id             |    |   +------------------+
+| - familyId       |    |
+| - name           |    |   +------------------+
+| - email          |    +---|      Goal        |
+| - passwordHash   |    |   +------------------+
+| - settings       |    |   | - id             |
+| - whatsappNumber |    |   | - familyId       |
++------------------+    |   | - userId         |
+                        |   | - name           |
+                        |   | - targetAmount   |
+                        |   | - currentAmount  |
+                        |   | - deadline       |
+                        |   +------------------+
+                        |
+                        |   +------------------+
+                        +---|     Budget       |
           +-----------------|------------------|
                             | - id             |
                             | - familyId       |
@@ -166,6 +176,30 @@ Armazena os grupos familiares/casais que compartilham o controle financeiro.
 
 ---
 
+### Coleção: `accounts`
+Armazena as diferentes contas financeiras (bancos, carteira, investimentos) de uma família.
+
+```json
+{
+  "_id": "ObjectId('...')",
+  "familyId": "ObjectId('...')",
+  "name": "Nubank Principal",
+  "type": "checking_account",
+  "balance": 1500.50,
+  "createdAt": "2026-03-01T10:00:00Z"
+}
+```
+
+| Campo | Descrição |
+|---|---|
+| `_id` | Identificador único da conta |
+| `familyId` | Referência à família proprietária da conta |
+| `name` | Nome da conta (ex: Itaú, Nubank, Dinheiro em Espécie) |
+| `type` | Tipo da conta: `checking`, `savings`, `investment`, `cash` |
+| `balance` | Saldo atual da conta (consolidado via transações) |
+
+---
+
 ### Coleção: `users`
 Armazena os dados de cadastro e autenticação dos usuários.
 
@@ -177,6 +211,11 @@ Armazena os dados de cadastro e autenticação dos usuários.
   "email": "maria@example.com",
   "passwordHash": "hash_bcrypt_da_senha",
   "whatsappNumber": "+5531999999999",
+  "settings": {
+    "whatsapp_alerts": true,
+    "daily_summary": true,
+    "summary_time": "08:00"
+  },
   "createdAt": "2026-03-01T10:00:00Z",
   "updatedAt": "2026-03-01T10:00:00Z"
 }
@@ -190,6 +229,7 @@ Armazena os dados de cadastro e autenticação dos usuários.
 | `email` | E-mail utilizado para login no Dashboard Web |
 | `passwordHash` | Hash bcrypt da senha do usuário |
 | `whatsappNumber` | Número vinculado para integração com o WhatsApp |
+| `settings` | Objeto JSON com preferências de notificações e sistema |
 
 ---
 
@@ -200,6 +240,7 @@ Armazena todas as movimentações financeiras (receitas e despesas).
 {
   "_id": "ObjectId('...')",
   "familyId": "ObjectId('...')",
+  "accountId": "ObjectId('...')",
   "userId": "ObjectId('...')",
   "type": "expense",
   "amount": 45.90,
@@ -216,6 +257,7 @@ Armazena todas as movimentações financeiras (receitas e despesas).
 |---|---|
 | `_id` | Identificador único da transação |
 | `familyId` | Referência à família dona da transação (quem visualiza) |
+| `accountId` | Referência à conta de onde o recurso saiu/entrou |
 | `userId` | Referência ao usuário que criou o registro (auditoria) |
 | `type` | Tipo da transação: `income` (receita) ou `expense` (despesa) |
 | `amount` | Valor em reais da transação |
@@ -310,10 +352,32 @@ Armazena os orçamentos mensais com limite de gastos por categoria da família.
 
 ---
 
-### Boas Práticas
+### Regras de Agrupamento Familiar
+
+Para garantir que o Silver suporte o crescimento da estrutura familiar de forma fluida, as seguintes regras de negócio foram estabelecidas para a gestão de dados:
+
+1.  **Afiliação Solo (Padrão):** Todo novo usuário recebe uma `familyId` única e privada no momento do cadastro.
+2.  **Convite e Unificação:** Quando um usuário aceita um convite para entrar em uma família já existente:
+    *   **Merge de Histórico:** O sistema executa uma atualização em lote para trocar o `familyId` de todos os registros prévios do novo membro (**Contas, Transações, Categorias, Metas**) pelo ID da nova família.
+    *   **Saldo Compartilhado:** As contas bancárias do novo membro passam a compor o saldo consolidado da família receptora.
+3.  **Preservação de Autoria:** O campo `userId` é **imutável**, mesmo após a troca de família. Isso permite que, em uma tela de extrato familiar, o sistema identifique claramente quem realizou cada transação (ex: "Almoço - Pago por Maria" ou "Internet - Pago por João").
+4.  **Merge de Categorias:** No processo de unificação, as categorias personalizadas do novo membro são integralmente anexadas à lista de categorias da família receptora. Isso garante a preservação do histórico de classificação das transações importadas, evitando que registros fiquem sem categoria definida.
+
+---
+
+### Integridade de Dados em Ambiente NoSQL
+
+Diferente de bancos relacionais que utilizam triggers ou chaves estrangeiras rígidas, o Silver garante a integridade dos dados através da camada da aplicação (Laravel):
+
+- **Database Observers (Hooks):** O sistema utiliza *Observers* na model `Transaction`. Sempre que uma transação é **criada, editada ou excluída**, eventos no backend disparam automaticamente:
+    - Atualização do `balance` na coleção `accounts`.
+    - Recálculo do `spentAmount` na coleção `budgets` para o mês correspondente.
+- **Atomicidade via Aplicação:** Garante que o usuário sempre visualize saldos atualizados sem a necessidade de processamentos pesados de agregação no momento da leitura.
+
+### Boas Práticas NoSQL
 
 - **Validação de Dados:** toda entrada de dados é validada na camada da API Laravel antes de ser persistida no MongoDB, garantindo consistência e prevenindo registros inválidos.
-- **Monitoramento e Logs:** o sistema utiliza os recursos de logging do Laravel para registrar erros, requisições com falha e ações sensíveis, facilitando o diagnóstico de problemas em produção.
+- **Desnormalização para Performance:** O campo `spentAmount` na coleção `budgets` e `balance` em `accounts` são exemplos de desnormalização intencional. Em arquiteturas NoSQL, preferimos replicar dados que exigem leitura frequente para evitar agregações complexas, garantindo integridade através de eventos no backend durante a criação de transações.
 - **Escalabilidade:** o MongoDB Atlas suporta estratégias de replicação automática, garantindo alta disponibilidade. Em cenários de crescimento, podem ser adotadas estratégias de sharding para distribuição de carga.
 - **Segurança:** o acesso ao banco de dados é restrito por autenticação com usuário e senha, e o cluster é configurado para aceitar conexões apenas de IPs autorizados (whitelist).
 
