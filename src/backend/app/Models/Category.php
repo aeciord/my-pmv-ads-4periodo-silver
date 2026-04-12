@@ -26,4 +26,9 @@ class Category extends Model
     {
         return $this->hasMany(Budget::class, 'categoryId', '_id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'categoryId', '_id');
+    }
 }
