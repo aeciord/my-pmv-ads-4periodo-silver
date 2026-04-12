@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\BudgetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,11 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::put('/family', [FamilyController::class, 'update']);
     Route::post('/family/join', [FamilyController::class, 'join']);
     Route::get('/family/members', [FamilyController::class, 'members']);
+
+    // Orçamentos (Budgets)
+    Route::get('/budgets', [BudgetController::class, 'index']);
+    Route::post('/budgets', [BudgetController::class, 'store']);
+    Route::get('/budgets/{id}', [BudgetController::class, 'show']);
+    Route::put('/budgets/{id}', [BudgetController::class, 'update']);
+    Route::delete('/budgets/{id}', [BudgetController::class, 'destroy']);
 });
