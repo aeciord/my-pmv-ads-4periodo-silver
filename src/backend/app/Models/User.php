@@ -49,6 +49,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the family the user belongs to.
+     */
+    public function family()
+    {
+        return $this->belongsTo(Family::class, 'familyId', '_id');
+    }
+
+    /**
      * Get the user's initials
      */
     public function initials(): string
