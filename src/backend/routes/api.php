@@ -5,8 +5,8 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\GoalController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -39,4 +39,11 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/budgets/{id}', [BudgetController::class, 'show']);
     Route::put('/budgets/{id}', [BudgetController::class, 'update']);
     Route::delete('/budgets/{id}', [BudgetController::class, 'destroy']);
+
+    // Metas (Goals)
+    Route::get('/goals', [GoalController::class, 'index']);
+    Route::post('/goals', [GoalController::class, 'store']);
+    Route::get('/goals/{id}', [GoalController::class, 'show']);
+    Route::put('/goals/{id}', [GoalController::class, 'update']);
+    Route::delete('/goals/{id}', [GoalController::class, 'destroy']);
 });
