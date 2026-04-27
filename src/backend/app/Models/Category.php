@@ -15,6 +15,11 @@ class Category extends Model
         'name',
         'color',
         'icon',
+        'is_default',
+    ];
+
+    protected $casts = [
+        'is_default' => 'boolean',
     ];
 
     public function family()
