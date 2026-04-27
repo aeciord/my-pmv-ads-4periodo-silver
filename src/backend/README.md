@@ -75,15 +75,37 @@ Authorization: Bearer <token>
 Accept: application/json
 ```
 
-## Banco de dados (estado atual)
+## Banco de dados
 
-- Desenvolvimento local: `sqlite`
-- Produção/alvo: `mongodb` (Atlas)
+O projeto usa dois bancos simultaneamente:
 
-Quando o Atlas estiver pronto, ajustar `.env`:
+| Banco | Responsabilidade |
+|---|---|
+| SQLite | Sessões, cache, jobs e migrations internas do Laravel |
+| MongoDB | Todo o domínio de negócio: contas, transações, orçamentos, metas, famílias |
+
+### Desenvolvimento local (Docker)
+
+O ambiente local usa um container MongoDB em vez de Atlas. É necessário ter o Docker instalado.
+
+```bash
+# Na pasta src/backend, suba o MongoDB:
+docker compose up -d
+
+# Para parar:
+docker compose down
+
+# Para parar e apagar os dados:
+docker compose down -v
+```
+
+O container expõe o MongoDB em `localhost:27017` e persiste os dados no volume `silver_mongodb_data` entre reinicializações.
+
+### Produção (MongoDB Atlas)
+
+Quando o cluster Atlas estiver configurado, altere no `.env`:
 
 ```env
-DB_CONNECTION=mongodb
 DB_DSN=mongodb+srv://<usuario>:<senha>@cluster.mongodb.net/?retryWrites=true&w=majority
 DB_DATABASE=silver_db
 ```
@@ -92,13 +114,22 @@ DB_DATABASE=silver_db
 
 ```bash
 cd src/backend
+
+# 1. Subir o MongoDB
+docker compose up -d
+
+# 2. Instalar dependências
 composer install
-npm install
+
+# 3. Configurar ambiente
 cp .env.example .env
 php artisan key:generate
+
+# 4. Criar tabelas SQLite (sessões, cache, etc.)
 php artisan migrate
+
+# 5. Subir o servidor
 php artisan serve
-npm run dev
 ```
 
 ## Convenções para equipe
