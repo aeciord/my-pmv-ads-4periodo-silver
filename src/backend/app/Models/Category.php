@@ -15,6 +15,11 @@ class Category extends Model
         'name',
         'color',
         'icon',
+        'is_default',
+    ];
+
+    protected $casts = [
+        'is_default' => 'boolean',
     ];
 
     public function family()
@@ -25,5 +30,10 @@ class Category extends Model
     public function budgets()
     {
         return $this->hasMany(Budget::class, 'categoryId', '_id');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'categoryId', '_id');
     }
 }

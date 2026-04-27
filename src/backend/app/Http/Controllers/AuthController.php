@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Family;
+use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,11 +12,13 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    public function __construct(private CategoryService $categoryService) {}
+
     public function register(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'email', 'max:255', 'unique:mongodb.users,email'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
@@ -29,6 +32,8 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
             'familyId' => $family->id,
         ]);
+
+        $this->categoryService->createDefaultsForFamily($family->id, $user->id);
 
         $token = $user->createToken('mobile')->plainTextToken;
 
