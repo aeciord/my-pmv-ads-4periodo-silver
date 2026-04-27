@@ -117,7 +117,7 @@ return [
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => env('DB_DSN'),
-            'database' => env('DB_DATABASE', 'silver_db'),
+            'database' => env('MONGODB_DATABASE', 'silver_db'),
         ],
 
     ],
