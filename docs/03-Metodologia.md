@@ -83,4 +83,4 @@ As ferramentas empregadas no projeto são:
  
 > **Possíveis Ferramentas que auxiliarão no gerenciamento**: 
 > - [Slack](https://slack.com/)
-> - [Github](https://github.com/)
+> - [Github](https://github.com/) 

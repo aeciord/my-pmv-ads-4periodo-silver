@@ -1,4 +1,4 @@
-# Introdução
+# Introdução 
 
 O cenário financeiro doméstico contemporâneo exige agilidade e precisão na gestão de recursos. Com a proliferação de meios de pagamento e a descentralização das contas, manter um controle financeiro rigoroso tornou-se um desafio para muitas famílias brasileiras.
 

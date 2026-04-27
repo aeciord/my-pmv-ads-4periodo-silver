@@ -34,4 +34,3 @@ São protótipos usados em design de interface para sugerir a estrutura de um si
  
 > **FIGMA SILVER**:
 > - [Veja nosso Wireframe no Figma completo](https://www.figma.com/design/npC61aU8dnzFzvTuCfxXfw/silver-wireframe?node-id=0-1&t=5IGyKrytdM2cGXC2-1)
-

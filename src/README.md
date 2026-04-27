@@ -16,54 +16,42 @@ src/
 
 - PHP 8.4 (ou 8.3+) com extensão `mongodb` habilitada
 - Composer
-- Node.js 20+
-- NPM
+- Docker (para o MongoDB local)
 - Herd (opcional, macOS)
 
-### Instalação
+### Instalação e execução local
 
 ```bash
 cd src/backend
+
+# 1. Subir o MongoDB via Docker
+docker compose up -d
+
+# 2. Instalar dependências PHP
 composer install
-npm install
+
+# 3. Configurar ambiente
 cp .env.example .env
 php artisan key:generate
+
+# 4. Criar tabelas SQLite (sessões, cache, etc.)
 php artisan migrate
-```
 
-### Execução local (sem Herd)
-
-```bash
-cd src/backend
+# 5. Subir o servidor
 php artisan serve
-npm run dev
 ```
 
-Acessos:
-- App Laravel: `http://127.0.0.1:8000`
-- Vite: `http://127.0.0.1:5173`
+Acesso: `http://127.0.0.1:8000`
 
-### Execução com Herd (opcional)
+### Execução com Herd (opcional, macOS)
 
 ```bash
 cd src/backend
+docker compose up -d
 herd link
-npm run dev
 ```
 
 Importante: o Herd deve apontar para `src/backend` (não para a raiz do monorepo).
-
-### MongoDB Atlas
-
-Enquanto o Atlas não estiver configurado, use SQLite local.
-
-Quando criar o cluster Atlas, ajuste no `.env`:
-
-```env
-DB_CONNECTION=mongodb
-DB_DSN=mongodb+srv://<usuario>:<senha>@cluster.mongodb.net/?retryWrites=true&w=majority
-DB_DATABASE=silver_db
-```
 
 ### Rotas de autenticação da API
 
